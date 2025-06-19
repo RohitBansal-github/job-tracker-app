@@ -26,10 +26,6 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', authRoutes); // Added for /api/users/me
 app.use('/api/jobs', jobRoutes);
-app.get("/api", (req, res) => {
-  res.send("✅ API is working fine!");
-});
-
 
 // Server
 const PORT = process.env.PORT || 5000;
