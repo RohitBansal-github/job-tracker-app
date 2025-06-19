@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # job-tracker-app
 =======
 # React + Vite
