@@ -1,6 +1,6 @@
 import DashboardLayout from "../layouts/DashboardLayout";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/api/axios";
 import JobCard from "../components/JobCard/JobCard";
 import Filters from "../components/Filters";
 import { toast } from "react-toastify";
@@ -18,9 +18,10 @@ const Jobs = () => {
       if (status && status !== "All") query += `status=${status}&`;
       if (search) query += `search=${search}&`;
 
-      const res = await axios.get(`http://localhost:5000/api/jobs?${query}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/jobs?${query}`
+        , {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
       setJobs(res.data);
     } catch (err) {

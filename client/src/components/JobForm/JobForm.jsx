@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "@/api/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,7 @@ const JobForm = ({ onJobAdded, editJob, onJobUpdated }) => {
     try {
       if (editJob) {
         const res = await axios.put(
-          `http://localhost:5000/api/jobs/${editJob._id}`,
+          `${import.meta.env.VITE_API_URL}/jobs/${editJob._id}`,
           jobData,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -48,12 +48,17 @@ const JobForm = ({ onJobAdded, editJob, onJobUpdated }) => {
         toast.success("🎉 Job updated successfully!");
         onJobUpdated(res.data);
       } else {
-        const res = await axios.post("http://localhost:5000/api/jobs", jobData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.post(
+          `${import.meta.env.VITE_API_URL}/jobs`,
+          jobData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success("🎉 Job added successfully!");
         onJobAdded(res.data);
       }
+
 
       setCompany("");
       setRole("");

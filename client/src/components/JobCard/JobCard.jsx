@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "@/api/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import Modal from "../Modal/Modal";
@@ -19,7 +19,7 @@ const JobCard = ({ job, onDelete, onEdit }) => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/jobs/${job._id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/jobs/${job._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("🗑️ Job deleted successfully");
