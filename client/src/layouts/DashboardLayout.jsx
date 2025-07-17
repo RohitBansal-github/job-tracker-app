@@ -16,18 +16,18 @@ const DashboardLayout = ({ children }) => {
     >
       {/* Sidebar - Fixed & transform based */}
       <div
-        className={`fixed z-40 top-0 left-0 h-full w-64 transition-transform duration-300 transform bg-[var(--sidebar-bg)] ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0`}
+        className={`fixed top-0 left-0 h-full w-64 z-40 bg-[var(--sidebar-bg)] transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        style={{ pointerEvents: isSidebarOpen ? 'auto' : 'none' }} // 👈 Add this line
       >
         <Sidebar />
       </div>
 
       {/* Main content area */}
       <div
-        className={`flex flex-col w-full transition-all duration-300 ${
-          isSidebarOpen ? "lg:ml-64" : "lg:ml-0"
-        }`}
+        key={isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'} // 👈 add key to force re-render
+        className={`flex flex-col w-full transition-all duration-300 ${isSidebarOpen ? "lg:ml-64" : "lg:ml-0"
+          }`}
       >
         <Navbar />
         <main className="flex-1 p-4 sm:p-6 lg:p-8 mt-16 lg:mt-20 overflow-auto">

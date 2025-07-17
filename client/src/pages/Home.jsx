@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext'; // 👈 import theme context
 
 export default function Home() {
   const navigate = useNavigate();
+  const { setTheme } = useTheme(); // 👈 get setTheme from context
+
+  // 👇 Force light mode properly using context
+  useEffect(() => {
+    setTheme("light");
+  }, [setTheme]);
 
   return (
     <motion.div
@@ -11,13 +19,8 @@ export default function Home() {
       transition={{ duration: 0.5 }}
       className="min-h-screen relative flex items-center justify-center overflow-hidden bg-white"
     >
-      {/* Inverted wave background with gradient */}
       <div className="absolute inset-0 bg-wave bg-no-repeat bg-cover bg-center z-0"></div>
-
-      {/* Overlay for readability */}
       <div className="absolute inset-0 bg-white/60 z-10"></div>
-
-      {/* Main content */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

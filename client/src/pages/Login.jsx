@@ -13,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // ✅ New state
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +21,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // ✅ Start spinner
     try {
       const res = await axios.post('/auth/login', formData);
       login(res.data.user, res.data.token);
@@ -28,6 +30,8 @@ const Login = () => {
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
       toast.error('⚠️ Login failed. Please check your credentials.');
+    } finally {
+      setLoading(false); // ✅ Stop spinner
     }
   };
 
@@ -95,8 +99,18 @@ const Login = () => {
             </motion.div>
           </div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button type="submit" className="w-full" aria-label="Login">
-              Login
+            <Button type="submit" className="w-full flex items-center justify-center" disabled={loading}>
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                  Please wait...
+                </>
+              ) : (
+                'Login'
+              )}
             </Button>
           </motion.div>
         </form>

@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { SidebarContext } from "@/context/SidebarContext";
+import { useTheme } from "@/context/ThemeContext"; // 👈 added
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { User, LogOut, Menu, X } from "lucide-react";
+import { User, LogOut, Menu, X, Sun, Moon } from "lucide-react"; // 👈 icons
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
+  const { theme, toggleTheme } = useTheme(); // 👈 get theme & toggle
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,7 +26,7 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className="fixed top-0 left-0 right-0 z-40 bg-[var(--card-bg)] shadow-md"
     >
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center">
+      <div className="w-full px-2 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center">
         <div className="flex items-center gap-2 sm:gap-4">
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -39,6 +41,7 @@ const Navbar = () => {
               <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary)]" />
             )}
           </motion.button>
+
           <motion.div
             className="flex items-center gap-1 sm:gap-2"
             initial={{ opacity: 0 }}
@@ -56,7 +59,23 @@ const Navbar = () => {
             <span className="text-base sm:text-lg font-bold text-[var(--primary)]">JobTrack</span>
           </motion.div>
         </div>
+
         <div className="flex items-center gap-2 sm:gap-4">
+          {/* 🌗 Theme toggle icon */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleTheme}
+            className="p-2 rounded-md hover:bg-[var(--hover-bg)]"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun className="w-5 h-5 sm:w-6 sm:h-6" />
+            ) : (
+              <Moon className="w-5 h-5 sm:w-6 sm:h-6" />
+            )}
+          </motion.button>
+
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -66,6 +85,7 @@ const Navbar = () => {
             <User size={14} className="sm:w-4 sm:h-4" />
             {user?.name || "User"}
           </motion.span>
+
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               variant="outline"
