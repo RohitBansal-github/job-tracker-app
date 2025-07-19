@@ -94,10 +94,7 @@ job-tracker/
 ## Live Links
 | Component  | Live Link                                      |
 |------------|------------------------------------------------|
-| Homepage   | https://jobtracker-client.vercel.app           |
-| Dashboard  | https://jobtracker-client.vercel.app/dashboard |
-| Login      | https://jobtracker-client.vercel.app/login     |
-| Signup     | https://jobtracker-client.vercel.app/signup    |
+| Homepage   | [https://jobtracker-client.vercel.app](https://job-tracker-app-steel.vercel.app/)           |   |
 
 ## Getting Started
 ### Prerequisites
