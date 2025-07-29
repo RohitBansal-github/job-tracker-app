@@ -1,4 +1,3 @@
-// server/server.js
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -10,23 +9,35 @@ dotenv.config();
 
 const app = express();
 
-// Connect DB
+// Connect to MongoDB
 connectDB();
 
-// Middleware
-app.use(cors({
- origin: "*", // test ke liye — prod mein specific origin do  // ✅ add deployed frontend too
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://job-tracker-app-steel.vercel.app'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-}));
+  optionsSuccessStatus: 200
+};
 
-
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', authRoutes); // Added for /api/users/me
 app.use('/api/jobs', jobRoutes);
 
-// Server
+// Server Start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

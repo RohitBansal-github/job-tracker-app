@@ -51,12 +51,15 @@ const Dashboard = () => {
     setJobs((prev) => [newJob, ...prev]);
   };
 
-  const handleJobUpdated = (updatedJob) => {
-    setJobs((prev) => prev.map((job) => (job._id === updatedJob._id ? updatedJob : job)));
-    const handleSetEditJob = useCallback((job) => {
-    setEditJob(job);
-  }, []);
-  };
+const handleJobUpdated = (updatedJob) => {
+  setJobs((prev) =>
+    prev.map((job) => (job._id === updatedJob._id ? updatedJob : job))
+  );
+};
+
+const handleSetEditJob = useCallback((job) => {
+  setEditJob(job);
+}, []);
 
   const handleJobDeleted = useCallback((jobId) => {
     setJobs((prev) => prev.filter((job) => job._id !== jobId));

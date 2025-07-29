@@ -96,6 +96,6 @@ const JobCard = memo(({ job, onDelete, onEdit }) => {
       />
     </>
   );
-};
+}); // ✅ Now semicolon is placed *after* the function ends
 
 export default JobCard;
