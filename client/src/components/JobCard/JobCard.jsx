@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import { useState } from "react";
 import axios from "@/api/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import Modal from "../Modal/Modal";
 
-const JobCard = ({ job, onDelete, onEdit }) => {
+const JobCard = memo(({ job, onDelete, onEdit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!job) return null;

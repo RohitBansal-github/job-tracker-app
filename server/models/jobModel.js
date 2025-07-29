@@ -5,6 +5,7 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    index: true, // Index for faster queries by user
   },
   company: {
     type: String,

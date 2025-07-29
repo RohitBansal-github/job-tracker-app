@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "@/api/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
@@ -53,12 +53,14 @@ const Dashboard = () => {
 
   const handleJobUpdated = (updatedJob) => {
     setJobs((prev) => prev.map((job) => (job._id === updatedJob._id ? updatedJob : job)));
-    setEditJob(null);
+    const handleSetEditJob = useCallback((job) => {
+    setEditJob(job);
+  }, []);
   };
 
-  const handleJobDeleted = (jobId) => {
+  const handleJobDeleted = useCallback((jobId) => {
     setJobs((prev) => prev.filter((job) => job._id !== jobId));
-  };
+  }, []);
 
   const statusCounts = jobs.reduce((acc, job) => {
     acc[job.status] = (acc[job.status] || 0) + 1;
@@ -204,7 +206,7 @@ const Dashboard = () => {
                   <JobCard
                     job={job}
                     onDelete={handleJobDeleted}
-                    onEdit={setEditJob}
+                    onEdit={handleSetEditJob}
                   />
                 </motion.div>
               ))

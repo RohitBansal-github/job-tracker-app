@@ -1,12 +1,12 @@
 import express from 'express';
 import { check } from 'express-validator';
-import { signup, login, updateProfile } from '../controllers/authController.js';
+import { signup, login, updateProfile, keepAlive } from '../controllers/authController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.post('/signup', signup);
-router.post('/login', login);
+router.get('/keep-alive', keepAlive);
 
 router.put(
   '/me',

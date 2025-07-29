@@ -1,3 +1,4 @@
+
 import Job from '../models/jobModel.js';
 
 export const createJob = async (req, res) => {
@@ -43,7 +44,9 @@ export const getJobs = async (req, res) => {
       ];
     }
 
-    const jobs = await Job.find(query).sort({ appliedDate: -1 });
+    const jobs = await Job.find(query)
+      .select('_id company position status') // ✅ Select only essential fields
+      .sort({ appliedDate: -1 });
     res.status(200).json(jobs);
   } catch (error) {
     console.error("❌ Error in getJobs:", error);

@@ -14,7 +14,10 @@ export const signup = async (req, res) => {
     const user = await User.create({ name, email, password });
     const token = generateToken(user._id);
 
-    res.status(201).json({ user, token });
+    res.status(201).json({
+      user: { _id: user._id, name: user.name, email: user.email },
+      token,
+    });
   } catch (error) {
     res.status(500).json({ message: 'Signup failed', error });
   }
@@ -38,14 +41,23 @@ export const login = async (req, res) => {
     }
 
     const token = generateToken(user._id);
-    res.status(200).json({ user, token });
+    res.status(200).json({
+      user: { _id: user._id, name: user.name, email: user.email },
+      token,
+    });
   } catch (error) {
     res.status(500).json({ message: 'Login failed', error });
   }
 };
 
 
+export const keepAlive = (req, res) => {
+  res.status(200).json({ message: "Server is awake" });
+};
+
+// Update Profile Controller
 export const updateProfile = async (req, res) => {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: errors.array()[0].msg });
@@ -82,7 +94,7 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.status(200).json({ user });
+    res.status(200).json({ user: { _id: user._id, name: user.name, email: user.email } });
   } catch (error) {
     console.error('Profile update error:', error);
     res.status(500).json({ message: 'Server error' });
