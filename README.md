@@ -25,7 +25,7 @@
 - [Credits](#credits)
 
 ## Project Overview
-**Job Tracker** is a web application designed to help job seekers manage their applications efficiently. Users can track application details, filter by status, and receive real-time notifications within a responsive, modern interface. Built with a robust tech stack, it’s a valuable tool for job seekers and a showcase of full-stack development for recruiters and developers.
+**Job Tracker** is a web application designed to help job seekers manage their applications efficiently. Users can track application details, filter by status, and modern interface. Built with a robust tech stack, it’s a valuable tool for job seekers and a showcase of full-stack development for developers.
 
 **Why it’s useful**: Job Tracker streamlines the job search process, reducing stress by organizing applications and providing actionable insights. Its intuitive design and secure authentication make it accessible and extensible.
 
@@ -33,7 +33,6 @@
 - 🔒 **User Authentication**: Secure login and signup with JWT.
 - 📋 **Job Management**: Create, read, update, and delete job applications with details like company, position, status, and notes.
 - 🔍 **Job Status Filters**: Sort applications by *Applied*, *Rejected*, or *Accepted* statuses.
-- 🔔 **Real-time Notifications**: Alerts for status updates or reminders.
 - 📱 **Responsive UI**: Mobile-friendly design with a vibrant blue gradient wave background.
 
 ## Tech Stack
