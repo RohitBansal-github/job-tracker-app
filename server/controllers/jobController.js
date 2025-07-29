@@ -45,7 +45,7 @@ export const getJobs = async (req, res) => {
     }
 
     const jobs = await Job.find(query)
-      .select('_id company position status') // ✅ Select only essential fields
+      .select('_id company position status appliedDate notes')
       .sort({ appliedDate: -1 });
     res.status(200).json(jobs);
   } catch (error) {
